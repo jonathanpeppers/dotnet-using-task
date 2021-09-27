@@ -1,0 +1,16 @@
+<Project>
+
+  <PropertyGroup>
+    <MyTaskAssembly Condition="'$(MyTaskAssembly)' == ''">binaries\MyTasks.1.0.0.0.dll</MyTaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="MyTasks.MyTask" AssemblyFile="$(MyTaskAssembly)" />
+
+  <Target Name="Build">
+    <MSBuild Projects="$(MSBuildThisFile)" Targets="_InnerBuild" />
+    <MSBuild Projects="$(MSBuildThisFile)" Targets="_InnerBuild" Properties="MyTaskAssembly=binaries\MyTasks.2.0.0.0.dll" />
+  </Target>
+  <Target Name="_InnerBuild">
+    <MyTask />
+  </Target>
+</Project>
